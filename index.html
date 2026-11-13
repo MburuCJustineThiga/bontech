@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bontech Graphics | Sign in</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050d0a;--bg2:#0a1a14;--card:rgba(8,24,18,.78);--text:#f1fff8;--muted:#9fc4b4;--accent:#19e68c;--accent2:#0fbf72;--line:rgba(25,230,140,.25);--ink:#03130c;--err:#ff7a7a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f2fbf6;--bg2:#e2f5ea;--card:rgba(255,255,255,.85);--text:#0b2a1c;--muted:#4a6b5b;--accent:#0b9e5c;--accent2:#087a47;--line:rgba(11,158,92,.3);--ink:#fff;--err:#c0392b}}
+:root[data-theme="dark"]{--bg:#050d0a;--bg2:#0a1a14;--card:rgba(8,24,18,.78);--text:#f1fff8;--muted:#9fc4b4;--accent:#19e68c;--accent2:#0fbf72;--line:rgba(25,230,140,.25);--ink:#03130c;--err:#ff7a7a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Outfit,system-ui,sans-serif;background:radial-gradient(circle at 70% 30%,var(--bg2),var(--bg) 70%);color:var(--text);overflow-x:hidden}
+canvas#globe{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.7}
+.pic{position:fixed;z-index:1;pointer-events:none;opacity:.55;animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-18px) rotate(6deg)}}
+header{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:18px 24px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.brand b{display:block;font-size:18px;line-height:1}
+.brand small{display:block;font-size:10px;letter-spacing:.14em;color:var(--accent);font-weight:700;margin-top:3px}
+nav{display:flex;gap:26px;align-items:center}
+nav a{color:var(--text);text-decoration:none;font-weight:500;font-size:15px}
+nav a.on,nav a:hover{color:var(--accent)}
+.pill{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--ink)!important;padding:11px 22px;border-radius:999px;font-weight:600;border:0;cursor:pointer;font:inherit;font-weight:600;box-shadow:0 8px 24px rgba(25,230,140,.25)}
+main{position:relative;z-index:5;max-width:1200px;margin:0 auto;padding:48px 24px 64px;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;min-height:calc(100vh - 90px)}
+h1{font-size:clamp(40px,6vw,72px);line-height:1.02;margin:0 0 18px;font-weight:700}
+h1 em{font-style:normal;color:var(--accent)}
+.lead{color:var(--muted);font-size:18px;max-width:520px;line-height:1.55}
+.tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.tags span{border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px;color:var(--muted)}
+.card{background:var(--card);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.tabs{display:flex;background:rgba(127,127,127,.12);border-radius:999px;padding:4px;margin-bottom:24px}
+.tabs button{flex:1;border:0;background:none;color:var(--muted);padding:10px;border-radius:999px;font:inherit;font-weight:600;cursor:pointer}
+.tabs button.on{background:var(--accent);color:var(--ink)}
+label{display:block;font-size:14px;color:var(--muted);margin:16px 0 6px}
+input{width:100%;padding:13px 16px;border-radius:14px;border:1px solid var(--line);background:rgba(127,127,127,.1);color:var(--text);font:inherit;font-size:16px;outline:0}
+input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(25,230,140,.18)}
+.go{width:100%;margin-top:24px;padding:14px}
+.go:disabled{opacity:.5;cursor:not-allowed}
+.msg{min-height:22px;margin-top:14px;font-size:14px;color:var(--err)}
+.msg.ok{color:var(--accent)}
+.note{font-size:12px;color:var(--muted);margin-top:10px}
+.hide{display:none}
+.wrap{overflow-x:auto}
+@media(max-width:860px){main{grid-template-columns:1fr;padding-top:28px}nav a:not(.pill){display:none}.pic{opacity:.3}}
+@media(prefers-reduced-motion:reduce){.pic{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="globe"></canvas>
+
+<!-- transparent decorative graphics -->
+<svg class="pic" style="top:14%;left:3%" width="90" height="90" viewBox="0 0 90 90" fill="none" stroke="#19e68c" stroke-width="2"><polygon points="45,5 80,25 80,65 45,85 10,65 10,25"/><polygon points="45,22 65,33 65,57 45,68 25,57 25,33" fill="rgba(25,230,140,.15)"/></svg>
+<svg class="pic" style="bottom:12%;left:6%;animation-delay:-2s" width="110" height="70" viewBox="0 0 110 70" fill="none" stroke="#19e68c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M35 10 10 35l25 25M75 10l25 25-25 25"/><path d="M62 5 48 65" opacity=".6"/></svg>
+<svg class="pic" style="top:10%;right:4%;animation-delay:-4s" width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="#19e68c" stroke-width="2"><circle cx="50" cy="50" r="42"/><circle cx="50" cy="50" r="26" fill="rgba(25,230,140,.12)"/><path d="M8 50h84M50 8v84" opacity=".5"/></svg>
+<svg class="pic" style="bottom:8%;right:3%;animation-delay:-1s" width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="#19e68c" stroke-width="2.5" stroke-linejoin="round"><path d="M20 80 28 56 70 14l16 16-42 42z" fill="rgba(25,230,140,.15)"/><path d="m60 24 16 16M20 80l8-24 16 16z"/></svg>
+<svg class="pic" style="top:52%;left:46%;animation-delay:-3s" width="60" height="60" viewBox="0 0 60 60" fill="rgba(25,230,140,.2)" stroke="#19e68c" stroke-width="2"><rect x="8" y="8" width="44" height="44" rx="10" transform="rotate(14 30 30)"/></svg>
+
+<header>
+  <a class="brand" href="#home" aria-label="Bontech Graphics home">
+    <svg width="44" height="44" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#19e68c"/><stop offset="1" stop-color="#0a9f5f"/></linearGradient></defs>
+      <rect width="64" height="64" rx="16" fill="url(#lg)"/>
+      <path d="M20 14v36M20 14h12a9 9 0 0 1 0 18H20M20 32h15a9 9 0 0 1 0 18H20" fill="none" stroke="#03130c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="47" cy="17" r="4" fill="#03130c"/>
+    </svg>
+    <span><b>Bontech Graphics</b><small>DESIGN &amp; TECH</small></span>
+  </a>
+  <nav>
+    <a class="on" href="#home">Home</a><a href="#services">Services</a><a href="#about">About</a><a href="#projects">Projects</a><a href="#resources">Resources</a>
+    <a class="pill" href="#home" id="cta">Get in Touch</a>
+  </nav>
+</header>
+
+<main>
+  <section>
+    <h1>Design. Create. <em>Grow.</em></h1>
+    <p class="lead">Welcome to Bontech Graphics. Create your free account to save your projects, brand assets and design requests in one place.</p>
+    <div class="tags"><span>Logos</span><span>Branding</span><span>Web design</span><span>Print</span></div>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <div id="authView">
+      <div class="tabs" role="tablist">
+        <button class="on" id="tabUp" type="button">Create account</button>
+        <button id="tabIn" type="button">Log in</button>
+      </div>
+      <div id="nameRow"><label for="name">Full name</label><input id="name" autocomplete="name" placeholder="Jane Doe"></div>
+      <label for="email">Email</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com">
+      <label for="pw">Password</label><input id="pw" type="password" autocomplete="new-password" placeholder="At least 8 characters">
+      <button class="pill go" id="submit" type="button">Create account</button>
+      <div class="msg" id="msg"></div>
+      <div class="note" id="dbnote"></div>
+    </div>
+    <div id="homeView" class="hide">
+      <h2 style="margin-top:0">Welcome, <span id="who"></span> 👋</h2>
+      <p class="lead" style="font-size:16px">You're logged in to Bontech Graphics. Your account is saved in the database.</p>
+      <button class="pill go" id="logout" type="button">Log out</button>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  // ---------- animated globe background ----------
+  var cv=document.getElementById('globe'),cx=cv.getContext('2d'),W,H,pts=[],N=90,ang=0;
+  function size(){W=cv.width=innerWidth;H=cv.height=innerHeight}
+  size();addEventListener('resize',size);
+  for(var i=0;i<N;i++){var u=Math.random()*2-1,t=Math.random()*6.283,r=Math.sqrt(1-u*u);pts.push([r*Math.cos(t),u,r*Math.sin(t)])}
+  var still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function draw(){
+    cx.clearRect(0,0,W,H);
+    var R=Math.min(W,H)*.42,ox=W*.62,oy=H*.5,c=Math.cos(ang),s=Math.sin(ang),p=[];
+    cx.strokeStyle='rgba(25,230,140,.35)';cx.lineWidth=1;cx.beginPath();cx.arc(ox,oy,R,0,6.283);cx.stroke();
+    for(var i=0;i<N;i++){var q=pts[i],x=q[0]*c+q[2]*s,z=-q[0]*s+q[2]*c;p.push([ox+x*R,oy+q[1]*R,z])}
+    cx.lineWidth=.6;
+    for(var a=0;a<N;a++)for(var b=a+1;b<N;b++){
+      var dx=p[a][0]-p[b][0],dy=p[a][1]-p[b][1],d=dx*dx+dy*dy;
+      if(d<R*R*.14){cx.strokeStyle='rgba(25,230,140,'+(.28*(1-d/(R*R*.14)))+')';cx.beginPath();cx.moveTo(p[a][0],p[a][1]);cx.lineTo(p[b][0],p[b][1]);cx.stroke()}
+    }
+    cx.fillStyle='#19e68c';
+    for(var k=0;k<N;k++){cx.globalAlpha=.4+.6*(p[k][2]+1)/2;cx.beginPath();cx.arc(p[k][0],p[k][1],2,0,6.283);cx.fill()}
+    cx.globalAlpha=1;ang+=.003;if(!still)requestAnimationFrame(draw)
+  }
+  draw();
+
+  // ---------- auth ----------
+  var $=function(i){return document.getElementById(i)},mode='up';
+  function load(){try{return JSON.parse(localStorage.getItem('bg_accounts')||'{}')||{}}catch(e){return {}}}
+  function save(o){try{localStorage.setItem('bg_accounts',JSON.stringify(o));return true}catch(e){return false}}
+  function setMode(m){mode=m;$('tabUp').className=m==='up'?'on':'';$('tabIn').className=m==='in'?'on':'';
+    $('nameRow').style.display=m==='up'?'':'none';$('submit').textContent=m==='up'?'Create account':'Log in';
+    $('pw').autocomplete=m==='up'?'new-password':'current-password';say('')}
+  function say(t,ok){var m=$('msg');m.textContent=t;m.className='msg'+(ok?' ok':'')}
+  $('tabUp').onclick=function(){setMode('up')};$('tabIn').onclick=function(){setMode('in')};
+  $('cta').onclick=function(e){e.preventDefault();$('email').focus()};
+
+  var enc=new TextEncoder();
+  function hex(buf){return Array.prototype.map.call(new Uint8Array(buf),function(b){return('0'+b.toString(16)).slice(-2)}).join('')}
+  async function idOf(email){return hex(await crypto.subtle.digest('SHA-256',enc.encode(email)))}
+  async function hashPw(pw,salt){
+    var k=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveBits']);
+    return hex(await crypto.subtle.deriveBits({name:'PBKDF2',salt:enc.encode(salt),iterations:150000,hash:'SHA-256'},k,256))}
+
+  function showHome(name){$('authView').classList.add('hide');$('homeView').classList.remove('hide');$('who').textContent=name}
+  $('logout').onclick=function(){try{sessionStorage.removeItem('bg_user')}catch(e){}
+    $('homeView').classList.add('hide');$('authView').classList.remove('hide');$('pw').value='';setMode('in')};
+
+  $('submit').onclick=async function(){
+    var email=$('email').value.trim().toLowerCase(),pw=$('pw').value,name=$('name').value.trim(),btn=$('submit');
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){say('Enter a valid email address.');return}
+    if(pw.length<8){say('Password must be at least 8 characters.');return}
+    btn.disabled=true;say('Working…',true);
+    try{
+      var id=await idOf(email),accts=load(),acct=accts[id];
+      if(mode==='up'){
+        if(acct){say('An account with this email already exists. Log in instead.');return}
+        if(!name){say('Please enter your name.');return}
+        var salt=hex(crypto.getRandomValues(new Uint8Array(16)));
+        accts[id]={salt:salt,hash:await hashPw(pw,salt),name:name,email:email,createdAt:new Date().toISOString()};
+        if(!save(accts)){say('Could not save your account. Please enable browser storage and try again.');return}
+        try{sessionStorage.setItem('bg_user',name)}catch(e){}
+        showHome(name)
+      }else{
+        if(!acct){say('No account found for that email.');return}
+        var d=acct;
+        if(await hashPw(pw,d.salt)!==d.hash){say('Incorrect password.');return}
+        try{sessionStorage.setItem('bg_user',d.name)}catch(e){}
+        showHome(d.name)
+      }
+    }catch(e){say('Something went wrong. Please try again.')}
+    finally{btn.disabled=false}
+  };
+
+  // ---------- init ----------
+  setMode('up');
+  $('dbnote').textContent='Passwords are salted and hashed. Accounts are stored in this browser.';
+  try{var s=sessionStorage.getItem('bg_user');if(s)showHome(s)}catch(e){}
+})();
+</script>
+</body>
+</html>
